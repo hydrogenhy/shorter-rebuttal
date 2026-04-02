@@ -256,10 +256,6 @@ python main.py docs.md docs.min.md --mode safe
 
 MIT
 
-## 📖 引用
-
-如果在研究中使用本工具，请考虑在您的工作中引用本项目。
-
 ---
 
 **🎯 为每一个字符都很宝贵的写手而设计。**

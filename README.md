@@ -248,10 +248,6 @@ See existing rules for patterns.
 
 MIT
 
-## 📖 Citation
-
-If you use this tool in research, consider citing this project in your work.
-
 ---
 
 **🎯 Made for writers who count every character.**
