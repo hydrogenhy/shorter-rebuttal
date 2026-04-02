@@ -1,0 +1,2 @@
+[console_scripts]
+mdcompress = mdcompressor.cli:app

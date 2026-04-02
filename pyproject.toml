@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "md-char-compressor"
+version = "0.1.0"
+description = "Markdown character compressor with CLI and GUI"
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "mdcompressor" }]
+dependencies = [
+  "typer>=0.12.3",
+  "markdown-it-py>=3.0.0",
+  "mdformat>=0.7.17",
+  "beautifulsoup4>=4.12.3",
+  "streamlit>=1.37.0"
+]
+
+[project.scripts]
+mdcompress = "mdcompressor.cli:app"
+
+[tool.setuptools]
+package-dir = {"" = "src"}
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.pytest.ini_options]
+pythonpath = ["src"]
