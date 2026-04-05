@@ -6,6 +6,13 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+## 🎥 演示视频
+
+<video controls width="100%">
+    <source src="fig/video.mp4" type="video/mp4">
+    您的浏览器不支持 video 标签。
+</video>
+
 ## ✨ 主要功能
 
 - 🖥️ **双模式操作**：命令行一键转换和交互式图形界面
@@ -249,25 +256,4 @@ python main.py docs.md docs.min.md --mode safe
 - 标准 CommonMark
 
 注意：不同渲染器对边界情况的处理可能不同。务必视觉上验证输出。
-
-## 🤝 贡献
-
-要添加新规则：
-
-1. 在 `src/mdcompressor/rules/` 中创建 `BaseRule` 的子类
-2. 实现 `apply()` 方法
-3. 在 `src/mdcompressor/rules/registry.py` 中注册
-4. 在 `tests/` 中添加测试
-
-参考现有规则了解模式。
-
-## 📚 文档
-
-- [IMPLEMENTATION_BLUEPRINT.md](./IMPLEMENTATION_BLUEPRINT.md) - 架构设计文档
-- [CUSTOM_RULES_GUIDE.md](./CUSTOM_RULES_GUIDE.md) - 自定义规则指南
-- [sample.md](./sample.md) - 示例 Markdown 文件
-
-## 📄 许可证
-
-MIT
 

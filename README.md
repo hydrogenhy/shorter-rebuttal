@@ -6,6 +6,13 @@ A powerful tool to compress Markdown files with render-aware verification. `safe
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+## 🎥 Demo Video
+
+<video controls width="100%">
+    <source src="fig/video.mp4" type="video/mp4">
+    Your browser does not support the video tag.
+</video>
+
 ## ✨ Features
 
 - 🖥️ **Two operating modes:** Command-line one-shot conversion and interactive GUI
@@ -247,18 +254,3 @@ Tested with:
 - Standard CommonMark
 
 Note: Different renderers may handle edge cases differently. Always verify output visually.
-
-## 🤝 Contributing
-
-To add new rules:
-
-1. Create a subclass of `BaseRule` in `src/mdcompressor/rules/`
-2. Implement the `apply()` method
-3. Register in `src/mdcompressor/rules/registry.py`
-4. Add tests in `tests/`
-
-See existing rules for patterns.
-
-## 📄 License
-
-MIT
