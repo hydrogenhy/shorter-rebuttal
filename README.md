@@ -13,6 +13,8 @@ A powerful tool to compress Markdown files with render-aware verification. `safe
     Your browser does not support the video tag.
 </video>
 
+[Download the demo video](fig/video.mp4)
+
 ## ✨ Features
 
 - 🖥️ **Two operating modes:** Command-line one-shot conversion and interactive GUI
