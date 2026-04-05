@@ -91,7 +91,7 @@ python main.py source.md target.md --mode aggressive --contribution report.json
 
 这些规则能显著提升压缩率，但也是最容易触发渲染 mismatch 的来源。
 
-基于 Sample.md (3996 字符) 的实测：
+基于 sample.md (3996 字符) 的实测：
 - 安全模式：225 字符节省 (5.6%)
 - 激进模式：642 字符节省 (16.1%)
 
@@ -201,7 +201,7 @@ python main.py docs.md docs.min.md --mode safe
 
 ### 📦 批量处理
 
-查看 `Sample.md` 获取包含以下元素的完整示例：
+查看 `sample.md` 获取包含以下元素的完整示例：
 - 5 层标题
 - 多个表格
 - 行内和显示数学表达式
@@ -218,7 +218,7 @@ python main.py docs.md docs.min.md --mode safe
 - 🔄 模式切换（安全/激进）
 - 📄 并排渲染预览对比
 - 📈 规则贡献明细
-- 📋 复制和导出按钮
+- 📋 导出按钮和预览复制图标
 
 ## 🏗️ 技术细节
 
@@ -265,7 +265,7 @@ python main.py docs.md docs.min.md --mode safe
 
 - [IMPLEMENTATION_BLUEPRINT.md](./IMPLEMENTATION_BLUEPRINT.md) - 架构设计文档
 - [CUSTOM_RULES_GUIDE.md](./CUSTOM_RULES_GUIDE.md) - 自定义规则指南
-- [Sample.md](./Sample.md) - 示例 Markdown 文件
+- [sample.md](./sample.md) - 示例 Markdown 文件
 
 ## 📄 许可证
 

@@ -199,7 +199,7 @@ Safe mode preserves all rendering and is suitable for versioning.
 
 ### 📦 Batch Processing
 
-See `Sample.md` for a comprehensive example with:
+See `sample.md` for a comprehensive example with:
 - 5-level headings
 - Multiple tables  
 - Inline and display math
@@ -216,7 +216,7 @@ See `Sample.md` for a comprehensive example with:
 - 🔄 Mode switch (safe/aggressive)
 - 📄 Side-by-side rendered preview comparison
 - 📈 Rule contribution breakdown
-- 📋 Copy and export buttons
+- 📋 Export buttons and preview copy icon
 
 ## 🏗️ Technical Details
 
