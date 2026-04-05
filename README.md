@@ -7,13 +7,8 @@ A powerful tool to compress Markdown files with render-aware verification. `safe
 ![Python](https://img.shields.io/badge/Python-3.9+-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
 ## 🎥 Demo Video
+https://github.com/user-attachments/assets/6cec05f5-1b85-4d8f-b9c5-2a6782781de6
 
-<video controls width="100%">
-    <source src="fig/video.mp4" type="video/mp4">
-    Your browser does not support the video tag.
-</video>
-
-[Download the demo video](fig/video.mp4)
 
 ## ✨ Features
 
