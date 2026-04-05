@@ -22,9 +22,13 @@ def _filter_rules(all_rules, options: CompressionOptions):
 
 def compress_text(text: str, options: Optional[CompressionOptions] = None) -> CompressionResult:
     options = options or CompressionOptions()
+    if text.startswith("\ufeff"):
+        text = text.lstrip("\ufeff")
 
     segments = split_segments(text)
     rules = _filter_rules(get_rules(options.mode), options)
+    if options.custom_rules:
+        rules = rules + list(options.custom_rules)
 
     rule_stats: dict[str, RuleResult] = {
         r.id: RuleResult(rule_id=r.id, changed=False, chars_saved=0, notes="") for r in rules

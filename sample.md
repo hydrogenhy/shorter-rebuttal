@@ -143,12 +143,12 @@ $$
 
 ### A.2 Nested Lists
 
-1.   First   level
-    -   Second   level   item   1
-    -   Second   level   item   2
-        1.   Third   level
-        2.   Another   third
-2.   First   again
+1. First   level
+    - Second   level   item   1
+    - Second   level   item   2
+        1. Third   level
+        2. Another   third
+2. First   again
 
 ### A.3 Code Example
 

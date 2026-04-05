@@ -3,6 +3,11 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import Literal, Optional
 
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from .rules.base import BaseRule
+
 RiskLevel = Literal["low", "medium", "high"]
 Mode = Literal["safe", "aggressive"]
 SegmentType = Literal[
@@ -23,6 +28,7 @@ class CompressionOptions:
     renderer_profile: str = "gfm"
     enabled_rules: Optional[list[str]] = None
     disabled_rules: Optional[list[str]] = None
+    custom_rules: Optional[list["BaseRule"]] = None
 
 
 @dataclass

@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import difflib
 import re
 
 from bs4 import BeautifulSoup
@@ -113,12 +114,36 @@ def _canonicalize_for_verification(text: str) -> tuple[str, list[str]]:
     return canonical, math_norm
 
 
+def _truncate(text: str, limit: int = 80) -> str:
+    if len(text) <= limit:
+        return text
+    return text[: limit - 1] + "…"
+
+
+def _first_diff_snippet(before: str, after: str, context: int = 24) -> str:
+    matcher = difflib.SequenceMatcher(a=before, b=after)
+    for tag, a0, a1, b0, b1 in matcher.get_opcodes():
+        if tag == "equal":
+            continue
+        before_snip = _truncate(before[max(0, a0 - context) : min(len(before), a1 + context)])
+        after_snip = _truncate(after[max(0, b0 - context) : min(len(after), b1 + context)])
+        return f"before=`{before_snip}`; after=`{after_snip}`"
+    return ""
+
+
 def verify_equivalence(before_text: str, after_text: str, profile: str = "gfm") -> tuple[bool, str]:
     before_canon, before_math = _canonicalize_for_verification(before_text)
     after_canon, after_math = _canonicalize_for_verification(after_text)
 
     if before_math != after_math:
-        return False, "render mismatch in math segments"
+        max_len = max(len(before_math), len(after_math))
+        for idx in range(max_len):
+            left = before_math[idx] if idx < len(before_math) else "<missing>"
+            right = after_math[idx] if idx < len(after_math) else "<missing>"
+            if left != right:
+                snippet = _first_diff_snippet(left, right)
+                detail = f"; first diff: {snippet}" if snippet else ""
+                return False, f"render mismatch in math segment {idx}{detail}"
 
     md = _renderer(profile)
     before_html = md.render(before_canon)
@@ -130,5 +155,8 @@ def verify_equivalence(before_text: str, after_text: str, profile: str = "gfm") 
     if before_norm == after_norm:
         return True, "ok"
 
+    snippet = _first_diff_snippet(before_norm, after_norm)
     hint = "render mismatch after normalization"
+    if snippet:
+        hint = f"{hint}; first diff: {snippet}"
     return False, hint

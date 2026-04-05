@@ -166,32 +166,33 @@ with st.sidebar:
     )
 
     if mode == "aggressive":
-        st.warning("Aggressive mode can produce higher savings but may trigger render mismatches. Use strict verification before final use.")
+        st.warning("Aggressive mode can produce higher savings but may trigger render mismatches.")
     
     all_rules = get_rules(mode)
     st.subheader("Rules Configuration")
     selected_rule_ids: list[str] = []
-    
-    use_presets = st.checkbox("Use presets", value=True)
-    if use_presets:
-        preset = st.selectbox(
-            "Preset",
-            ["custom", "all-rules", "conservative", "balanced"],
-            help="Select rule preset or customize below"
-        )
-        if preset == "all-rules":
-            selected_rule_ids = [r.id for r in all_rules]
-        elif preset == "conservative":
-            selected_rule_ids = [r.id for r in all_rules if r.risk == "low"]
-        elif preset == "balanced":
-            selected_rule_ids = [r.id for r in all_rules if r.risk in {"low", "medium"}]
+
+    preset = st.selectbox(
+        "Preset",
+        ["all-rules", "custom"],
+        help="Select rule preset or customize below",
+    )
+    if preset == "all-rules":
+        selected_rule_ids = [r.id for r in all_rules]
+    elif preset == "custom":
+        selected_rule_ids = []
     
     if not selected_rule_ids:
         st.write("**Individual Rule Selection:**")
-        for rule in all_rules:
+        risk_order = {"low": 0, "medium": 1, "high": 2}
+        for rule in sorted(all_rules, key=lambda item: (risk_order.get(item.risk, 99), item.id)):
             risk_color = {"low": "🟢", "medium": "🟡", "high": "🔴"}.get(rule.risk, "⚪")
             default = rule.risk == "low"
-            enabled = st.checkbox(f"{risk_color} {rule.id}", value=default)
+            enabled = st.checkbox(
+                f"{risk_color} {rule.id}",
+                value=default,
+                help=f"{rule.description} (risk: {rule.risk})",
+            )
             if enabled:
                 selected_rule_ids.append(rule.id)
 
@@ -220,7 +221,7 @@ if use_sample:
 else:
     sample_file = st.file_uploader("Or upload a Markdown file", type="md")
     if sample_file:
-        original_text = sample_file.getvalue().decode("utf-8")
+        original_text = sample_file.getvalue().decode("utf-8-sig")
     else:
         original_text = st.text_area("Original Markdown", value=default_sample, height=350, key="editor")
 
@@ -317,10 +318,16 @@ if "last_result" in st.session_state:
         st.caption("Compressed")
         st.iframe(_to_data_uri(render_compressed_html), height=420)
 
-    if result.verify_passed:
+    if not verify:
+        st.warning("未进行检查，因为这个是 off。")
+    elif result.verify_passed:
         st.info("No render mismatch detected. Highlighting is hidden.")
     else:
-        st.warning("Potential render mismatch detected. Red highlights mark visible-text differences.")
+        st.warning(
+            "Potential render mismatch detected. Red highlights mark visible-text differences.\n"
+            ":red[This mismatch is detected by the render-equivalence verifier, and it may not affect the rendered text. Manual review is still required.]"
+        )
+        st.code(result.verify_message, language="text")
 
     st.divider()
 
@@ -359,6 +366,5 @@ if "last_result" in st.session_state:
             mime="application/json"
         )
 
-    if st.button("🔄 Copy Compressed Text", help="Copy to clipboard"):
-        st.success("Copied to clipboard! (Use browser's standard copy function)")
+    st.info("Use the copy icon on the compressed preview above to copy the compressed text. The browser blocks direct clipboard access from a normal Streamlit button.")
 

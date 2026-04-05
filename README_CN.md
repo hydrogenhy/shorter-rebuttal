@@ -23,6 +23,14 @@ pip install -e .
 
 ## 🚀 快速开始
 
+### 🎨 图形界面模式（推荐）
+
+启动交互式编辑和预览（使用嵌入式 iframe 方式渲染）：
+
+```bash
+streamlit run ui/app.py
+```
+
 ### 💻 命令行模式
 
 一行命令转换：
@@ -37,13 +45,6 @@ python main.py source.md target.md
 python main.py source.md target.md --mode aggressive --contribution report.json
 ```
 
-### 🎨 图形界面模式
-
-启动交互式编辑和预览：
-
-```bash
-streamlit run ui/app.py
-```
 
 ## 🎛️ 模式建议
 
@@ -111,6 +112,18 @@ Total chars saved: 642
 
 ## 🔧 自定义规则
 
+现在可以直接通过命令行加载自定义规则文件，文件中导出 `CUSTOM_RULES` 即可：
+
+```bash
+python main.py file.md out.md --custom-rules my_rules.py
+```
+
+规则文件中应定义：
+
+```python
+CUSTOM_RULES = [rule1, rule2, ...]
+```
+
 ### 用户定义的替换规则
 
 ```python
@@ -144,6 +157,8 @@ rule = CustomFunctionRule(
     risk="low"
 )
 ```
+
+替换规则和函数规则可以同时放进同一个 `CUSTOM_RULES` 列表里，然后一次性从命令行加载。
 
 ## 📐 渲染器配置
 
@@ -201,7 +216,7 @@ python main.py docs.md docs.min.md --mode safe
 - 📊 并排显示字符和字节数统计
 - 🎚️ 规则启用/禁用开关
 - 🔄 模式切换（安全/激进）
-- 📄 渲染预览对比
+- 📄 并排渲染预览对比
 - 📈 规则贡献明细
 - 📋 复制和导出按钮
 
@@ -256,6 +271,3 @@ python main.py docs.md docs.min.md --mode safe
 
 MIT
 
----
-
-**🎯 为每一个字符都很宝贵的写手而设计。**

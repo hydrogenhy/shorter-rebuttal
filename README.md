@@ -23,6 +23,14 @@ pip install -e .
 
 ## 🚀 Quick Start
 
+### 🎨 GUI Mode (Recommend)
+
+Interactive side-by-side editor and preview (embedded HTML iframe rendering):
+
+```bash
+streamlit run ui/app.py
+```
+
 ### 💻 CLI Mode
 
 One-command conversion:
@@ -37,13 +45,6 @@ With options:
 python main.py source.md target.md --mode aggressive --contribution report.json
 ```
 
-### 🎨 GUI Mode
-
-Interactive side-by-side editor and preview:
-
-```bash
-streamlit run ui/app.py
-```
 
 ## 🎛️ Mode Guidance
 
@@ -111,6 +112,18 @@ Total chars saved: 642
 
 ## 🔧 Custom Rules
 
+Custom rules can be used directly from the CLI with a Python file that exports `CUSTOM_RULES`.
+
+```bash
+python main.py file.md out.md --custom-rules my_rules.py
+```
+
+The Python file should define:
+
+```python
+CUSTOM_RULES = [rule1, rule2, ...]
+```
+
 ### User-Defined Replacements
 
 ```python
@@ -144,6 +157,8 @@ rule = CustomFunctionRule(
     risk="low"
 )
 ```
+
+You can place both replacement and function rules into the same `CUSTOM_RULES` list and load them together from the CLI.
 
 ## 📐 Renderer Profile
 
@@ -199,7 +214,7 @@ See `Sample.md` for a comprehensive example with:
 - 📊 Side-by-side character and byte counts
 - 🎚️ Rule enable/disable toggles
 - 🔄 Mode switch (safe/aggressive)
-- 📄 Rendered preview comparison
+- 📄 Side-by-side rendered preview comparison
 - 📈 Rule contribution breakdown
 - 📋 Copy and export buttons
 
@@ -247,8 +262,3 @@ See existing rules for patterns.
 ## 📄 License
 
 MIT
-
----
-
-**🎯 Made for writers who count every character.**
-

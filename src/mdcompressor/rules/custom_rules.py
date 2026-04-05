@@ -2,8 +2,8 @@ from __future__ import annotations
 
 from typing import Callable, Optional
 
-from .models import RuleResult
-from .rules.base import BaseRule
+from ..models import RuleResult
+from .base import BaseRule
 
 
 class CustomReplacementRule(BaseRule):

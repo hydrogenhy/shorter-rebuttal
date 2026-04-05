@@ -16,7 +16,24 @@ class TrimTrailingSpacesRule(BaseRule):
         )
 
     def apply(self, text: str) -> tuple[str, RuleResult]:
-        out = re.sub(r"[ \t]+$", "", text, flags=re.MULTILINE)
+        def _trim_line(line: str) -> str:
+            core = line.rstrip("\r\n")
+            eol = line[len(core):]
+
+            # Preserve the required separator after markdown markers so that
+            # segmented processing does not merge `- ` with inline code/math.
+            if re.match(r"^[ \t]*(?:>+|#{1,6}|[-*+]|\d+\.)[ \t]+$", core):
+                return re.sub(r"[ \t]+$", "", core) + " " + eol
+
+            # Also preserve a single separator after punctuation when the text
+            # segment ends immediately before an inline code/math segment.
+            if re.match(r".*[:;,!?][ \t]+$", core):
+                return re.sub(r"[ \t]+$", "", core) + " " + eol
+
+            return re.sub(r"[ \t]+$", "", core) + eol
+
+        out = "".join(_trim_line(line) for line in text.splitlines(keepends=True))
+
         return out, RuleResult(self.id, out != text, len(text) - len(out))
 
 
@@ -146,7 +163,15 @@ class CollapseIntraLineSpacesRule(BaseRule):
             if "|" in core:
                 out_lines.append(line)
                 continue
-            if core.startswith("    ") or core.startswith("\t"):
+
+            # Keep truly indented code blocks intact, but allow nested list items
+            # such as "    - Second   level   item   1" to be compressed.
+            stripped = core.lstrip(" \t")
+            indent = core[: len(core) - len(stripped)]
+            if indent.startswith("\t"):
+                out_lines.append(line)
+                continue
+            if len(indent) >= 4 and not re.match(r"(?:[-*+]|\d+\.)\s+", stripped):
                 out_lines.append(line)
                 continue
 

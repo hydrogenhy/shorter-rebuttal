@@ -4,6 +4,12 @@
 
 The Markdown Compressor supports user-defined rules for custom character replacements and transformations.
 
+## Current Status
+
+Custom rules are usable both programmatically through `CompressionOptions.custom_rules` and from the CLI via `--custom-rules <python_file>`. They are appended to the built-in rule set when `compress_text()` runs.
+
+The runnable examples in this guide live under the `custom-rule-example/` folder.
+
 ## Method 1: Replacement Rules
 
 For simple string-to-string replacements:
@@ -27,16 +33,9 @@ my_rule = CustomReplacementRule(
     risk="low"  # Can be "low", "medium", "high"
 )
 
-# Apply it to existing rules
-from mdcompressor.rules.registry import get_rules
-
+# Apply it through CompressionOptions.custom_rules
 text = "This is true because x."
-opts = CompressionOptions(mode="safe")
-all_rules = get_rules(opts.mode)
-all_rules.append(my_rule)
-
-# Note: You'd need to integrate this into the pipeline
-# For now, you can manually apply:
+opts = CompressionOptions(mode="safe", custom_rules=[my_rule])
 result = compress_text(text, opts)
 ```
 
@@ -63,9 +62,9 @@ my_func_rule = CustomFunctionRule(
 )
 ```
 
-## Method 3: Via CLI (Planned)
+## Method 3: Via CLI
 
-In future versions, a config file will support custom rules:
+Custom rules can be loaded from a Python file that exports `CUSTOM_RULES`:
 
 ```yaml
 # custom_rules.yaml
@@ -82,7 +81,13 @@ rules:
 
 Then use:
 ```bash
-python main.py file.md out.md --custom-rules custom_rules.yaml
+python main.py file.md out.md --custom-rules custom-rule-example/custom_rules_demo.py
+```
+
+The Python file should define:
+
+```python
+CUSTOM_RULES = [rule1, rule2, ...]
 ```
 
 ## Segment Types
@@ -157,15 +162,10 @@ comment_remover = CustomFunctionRule(
 
 ## Integration into CLI
 
-To use custom rules via CLI in future versions:
+CLI usage example:
 
 ```bash
-# Standalone compression
-python main.py file.md out.md --load-custom-rules my_rules.py
-
-# This will import custom rules from my_rules.py
-# Expected format in my_rules.py:
-# CUSTOM_RULES = [rule1, rule2, ...]
+python main.py file.md out.md --custom-rules custom-rule-example/custom_rules_demo.py
 ```
 
 ## Best Practices
@@ -178,13 +178,13 @@ python main.py file.md out.md --load-custom-rules my_rules.py
 
 ## Limitations
 
-- Currently, custom rules must be registered programmatically
+- Custom rules can be passed programmatically via `CompressionOptions.custom_rules` or loaded from CLI with `--custom-rules`
 - No UI support yet for dynamic rule creation
 - Rules are applied in registration order (watch for interdependencies)
 
 ## Future Roadmap
 
-- Config file format (YAML/JSON)
+- Optional YAML/JSON config file loader
 - UI form for creating custom rules
 - Rule conflict detection
 - Dry-run mode for testing
