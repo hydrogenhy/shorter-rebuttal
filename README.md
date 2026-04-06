@@ -6,6 +6,13 @@ A powerful tool to compress Markdown files with render-aware verification. `safe
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+## 📰 News
+
+[2026.04.06] Available online: https://shorter-re.streamlit.app/
+
+[2026.04.05] Initial release.
+
+---
 ## 🎥 Demo Video
 https://github.com/user-attachments/assets/6cec05f5-1b85-4d8f-b9c5-2a6782781de6
 
