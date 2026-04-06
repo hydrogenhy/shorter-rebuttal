@@ -20,6 +20,12 @@ dependencies = [
 [project.scripts]
 mdcompress = "mdcompressor.cli:app"
 
+[tool.poetry]
+name = "md-char-compressor"
+version = "0.1.0"
+description = "Markdown character compressor with CLI and GUI"
+packages = [{ include = "mdcompressor", from = "src" }]
+
 [tool.setuptools]
 package-dir = {"" = "src"}
 

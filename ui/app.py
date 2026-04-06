@@ -9,7 +9,7 @@ import streamlit as st
 from bs4 import BeautifulSoup, NavigableString
 from markdown_it import MarkdownIt
 
-ROOT = Path(__file__).resolve().parents[2]
+ROOT = Path(__file__).resolve().parents[1]
 SRC = ROOT / "src"
 if str(SRC) not in sys.path:
     sys.path.insert(0, str(SRC))
