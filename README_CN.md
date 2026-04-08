@@ -6,6 +6,15 @@
 
 ![Python](https://img.shields.io/badge/Python-3.9+-blue) ![License](https://img.shields.io/badge/License-MIT-green) ![Status](https://img.shields.io/badge/Status-Active-brightgreen)
 
+## 📰 新闻
+
+[2026.04.09] 支持 Claude Skills: https://github.com/hydrogenhy/md-char-compressor-skill
+
+[2026.04.06] 可直接通过网络访问: https://shorter-re.streamlit.app/
+
+[2026.04.05] 开放第一版本
+
+---
 ## 🎥 演示视频
 https://github.com/user-attachments/assets/6cec05f5-1b85-4d8f-b9c5-2a6782781de6
 

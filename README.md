@@ -8,6 +8,8 @@ A powerful tool to compress Markdown files with render-aware verification. `safe
 
 ## 📰 News
 
+[2026.04.09] Support Claude Skills: https://github.com/hydrogenhy/md-char-compressor-skill
+
 [2026.04.06] Available online: https://shorter-re.streamlit.app/
 
 [2026.04.05] Initial release.
